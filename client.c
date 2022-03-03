@@ -4,12 +4,14 @@
 
 void    print_err(char *err)
 {
-    ft_putstr_fd(ERR_SYNTX, 2);
-    exit(1);
+    ft_putstr_fd(ERR_SYNTX, STDERR_FILENO);
+    exit(EXIT_FAILURE);
 }
 
 int     checker(char *pid, char *message)
 {
+    if (!pid || !message || !message[0] || !pid[0])
+        print_err(ERR_SYNTX);
     if ((*pid == '0' && *(pid + 1) == '\0') || *pid == '-')
         print_err(ERR_SYNTX);
     while (*pid)
@@ -20,11 +22,6 @@ int     checker(char *pid, char *message)
             return (-1);
         }
         pid++;
-    }
-    if (!message || message[0] == '\0')
-    {
-        print_err(ERR_SYNTX);
-        return (-1);
     }
     return (0);
 }
@@ -44,9 +41,9 @@ void    send_char(pid_t pid, int c)
     while (counter)
     {
         if (counter & c)
-            kill(pid, SIGUSR1);
+            kill(pid, SIGUSR1); // 1
         else
-            kill(pid, SIGUSR2);
+            kill(pid, SIGUSR2); // 0
         usleep(100);
         counter >>= 1;
     }
@@ -56,14 +53,13 @@ void    send_message(char *s_pid, char *message)
 {
     pid_t pid;
 
-    if (s_pid)
-        pid = ft_atoi(s_pid);
+    pid = (pid_t)ft_atoi(s_pid);
     while (*message)
     {
         send_char(pid, *message);
         message++;
     }
-    send_char(pid, *message);
+    send_char(pid, '\0');
 }
 
 int main(int ac, char **av)
