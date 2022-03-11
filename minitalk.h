@@ -7,7 +7,7 @@
 #include <signal.h>
 #include <stdbool.h>
 
-#define BUFFER_SIZE 4096
+#define BUFFER_SIZE 409600
 
 typedef struct s_minitalk
 {
@@ -15,11 +15,12 @@ typedef struct s_minitalk
 
     bool all_done;
     int top_bit;
-    int top_byte;
+    int top_byte; // g_mini.buffer[g_mini.top_byte]
     /* data */
 }       t_minitalk;
 
 t_minitalk g_mini;
 
 #endif
-
+ 
+   
