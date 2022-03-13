@@ -6,7 +6,7 @@ LIBS = -L ./libft -lft
 INC = -I . -I libft
 
 # B_OBJS = $(B_SRCS:.c=.o)
-CFLAGS = 
+CFLAGS = -Wall -Werror -Wextra
 CC = gcc
 
 all: $(LIBFT) $(SERVER) $(CLIENT)

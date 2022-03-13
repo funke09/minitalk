@@ -7,7 +7,7 @@
 #include <signal.h>
 #include <stdbool.h>
 
-#define BUFFER_SIZE 409600
+#define BUFFER_SIZE 40960000
 
 typedef struct s_minitalk
 {
